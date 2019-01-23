@@ -1,7 +1,6 @@
-gestion:
-    resource: "@GestionBundle/Controller"
+gestion_usuario:
+    resource: "@GestionBundle/Controller/UsuarioController.php"
     type:     annotation
-    prefix:   /
 
 app:
     resource: '@AppBundle/Controller/'
