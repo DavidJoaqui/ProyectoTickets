@@ -1,59 +1,68 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Usuarios list</h1>
+    <h1>Lista de Usuarios</h1>
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Username</th>
-                <th>Documento</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Role</th>
-                <th>Isactive</th>
-                <th>Telefono</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for usuario in usuarios %}
-            <tr>
-                <td><a href="{{ path('usuario_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>
-                <td>{{ usuario.username }}</td>
-                <td>{{ usuario.documento }}</td>
-                <td>{{ usuario.nombres }}</td>
-                <td>{{ usuario.apellidos }}</td>
-                <td>{{ usuario.email }}</td>
-                <td>{{ usuario.password }}</td>
-                <td>{{ usuario.role }}</td>
-                <td>{% if usuario.isActive %}Yes{% else %}No{% endif %}</td>
-                <td>{{ usuario.telefono }}</td>
-                <td>{% if usuario.createdAt %}{{ usuario.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if usuario.updatedAt %}{{ usuario.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('usuario_show', { 'id': usuario.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('usuario_edit', { 'id': usuario.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('usuario_new') }}">Create a new usuario</a>
-        </li>
-    </ul>
-{% endblock %}
+    <div class="container">
+        <div class="col-md-12">
+            <div class="page-header margin-none">
+
+                <div class="table-responsive">
+                    <table class="table-responsive">
+                        <thead>
+                            <tr>                                
+                                <th>usuario</th>
+                                <th>Documento</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>                                
+                                <th>rol</th>
+                                <th>Estado</th>
+                                <th>Telefono</th>                
+                                <th>ult.Modificacion</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for usuario in usuarios %}
+                                <tr>
+                                    <!--<td><a href="{{ path('usuario_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>-->
+                                    <td>{{ usuario.username }}</td>
+                                    <td>{{ usuario.documento }}</td>
+                                    <td>{{ usuario.nombres }}</td>
+                                    <td>{{ usuario.apellidos }}</td>
+                                    <td>{{ usuario.email }}</td>                                    
+                                    {% if usuario.role == 'ROLE_ADMIN' %}
+                                        <td>Administrador</td>
+                                    {% else %}
+                                        <td>Usuario</td>
+                                    {% endif %}
+                                    <td>{% if usuario.isActive %}Activo{% else %}Inactivo{% endif %}</td>
+                                    <td>{{ usuario.telefono }}</td>
+                                    <td>{% if usuario.updatedAt %}{{ usuario.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>
+                                        <ul>
+                                            
+                                                <a href="{{ path('usuario_show', { 'id': usuario.id }) }}" class="btn btn-sm btn-info">Ver</a>
+                                           
+                                                <a href="{{ path('usuario_edit', { 'id': usuario.id }) }}" class="btn btn-sm btn-primary">Editar</a>
+                                            
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+            <li>
+                <a href="{{ path('usuario_new') }}">Create a new usuario</a>
+            </li>
+        </ul>
+    {% endblock %}
